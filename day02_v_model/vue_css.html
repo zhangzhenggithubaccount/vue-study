@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <style>
+        .current {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+        .wrong {
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p class="current" v-bind:class='className'>自然段</p>
+        <p class="current" v-bind:style='styleName'>自然段</p>
+    </div>
+    <script>
+
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    className: {
+                        current: true,
+                        wrong: false
+                    },
+                    styleName: {
+                        width: '300px',
+                        height: '300px',
+                        backgroundColor: 'green'
+                    }
+                }
+            },
+            methods: {
+
+            }
+        });
+
+    </script>
+</body>
+</html>

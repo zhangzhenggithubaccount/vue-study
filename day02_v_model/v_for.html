@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <tr v-if='students.length >= 0' v-for='(item, index) in students' :key='item.id'>
+                <td>{{item.id}}</td>
+                <td>{{item.uname}}</td>
+                <td>{{item.age}}</td>
+            </tr>
+            <tr>
+                <td v-for='(v, k, i) in stu'>{{v}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    students: [
+                        {
+                            id: 1,
+                            uname: 'phil',
+                            age: 15
+                        },
+                        {
+                            id: 2,
+                            uname: 'jack',
+                            age: 17
+                        },
+                        {
+                            id: 3,
+                            uname: 'tom',
+                            age: 20
+                        }
+                    ],
+                    stu: {
+                        id: 4,
+                        uname: 'luky',
+                        age: 18
+                    }
+                }
+            },
+            methods: {
+
+            }
+        });
+
+    </script>
+</body>
+
+</html>

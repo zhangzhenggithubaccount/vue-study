@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- MVVM -->
+    <!-- view -->
+    <!-- v-html='msg' === {{msg}} -->
+    <div id="news" v-cloak>{{msg}}</div>
+    <script>
+
+        //viewmodel
+        let vm = new Vue({
+            el: '#news',
+            //model es6 简写 === data : function() {}
+            data() {
+                return {
+                    msg: 'hello world.'
+                }
+            }
+        });
+
+        //vm.msg = 'hello vue'; // 数据驱动视图 数据改变 视图自动更新
+
+    </script>
+</body>
+</html>

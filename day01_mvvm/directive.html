@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- view -->
+    <div id="app">
+        <!-- v-cloak 属性避免闪烁 -->
+        <div v-cloak>v-cloak:{{msg}}</div>
+        <!-- v-html -->
+        <div v-html='msg'></div>
+        <div v-html='msg2'></div>
+        <!-- v-text -->
+        <div v-text='msg2'></div>
+        <!-- v-pre -->
+        <div v-pre>{{msg}}</div>
+        <!-- v-once -->
+        <div v-once>{{uname}}</div>
+        <!-- v-model -->
+        <div>
+            <input type="text" name="uname" id="uname" v-model='uname'>
+            <!-- v-bind:属性 简写:属性 语法糖 -->
+            <input type="text" name="uname" id="uname" :value='uname'>
+            <!-- <input type="text" name="uname" id="uname" v-bind:value='uname'> -->
+        </div>
+    </div>
+    <script>
+        //viewmodel
+        let vm = new Vue({
+            el: '#app',
+            //model
+            data() {
+                return {
+                    msg: 'hello vue',
+                    msg2: '<h1>hello v-html<h1>',
+                    uname: ''
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

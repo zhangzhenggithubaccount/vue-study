@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{info}}
+    </div>
+    <script>
+        
+        let data = {
+            info: 'Hello world!'
+        };
+        let vm = new Vue({
+            //el: '#app',
+            data: data,
+            methods: {
+
+            },
+            //生命周期钩子函数
+            beforeCreate() {
+                console.log('beforeCreate');
+            },
+            //created: function() {}
+            created() {
+                console.log(this.$el);
+                console.log('created');
+            },
+            beforeMount() {
+                console.log(this.$el);
+                console.log('beforeMount');
+            },
+            mounted() {
+                console.log(this.$el);
+                console.log('mounted');
+            },
+            beforeUpdate() {
+                console.log(this.$data);
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log(this.$data);
+                console.log('updated');
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy');
+            },
+            destroyed() {
+                console.log('destroyped');
+            }
+        });
+        //挂载dom
+        vm.$mount(document.getElementById('app'));
+    </script>
+</body>
+</html>

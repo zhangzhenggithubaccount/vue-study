@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <form action="" id="login">
+        account:<input type="text" v-focus v-model.lazy='account'><span>{{account}}</span><br/>
+        comment:<textarea v-model.lazy='comment'></textarea><span>{{comment}}</span><br/>
+        radio: <input type="radio" value="1" v-model.number='sex'/>男<input type="radio" value="2" v-model.number='sex'/>女<span>{{sex}}</span><br/>
+        checkbox: <input type="checkbox" value="html" v-model='skills'/>html
+                  <input type="checkbox" value="js" v-model='skills'/>js
+                  <input type="checkbox" value="node" v-model='skills'/>node
+                  <span>{{skills}}</span><br/>
+        select: 
+        <select v-model='select' multiple>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <span>{{select}}</span>
+    </form>
+
+    <script>
+
+        let vm = new Vue({
+            el: '#login',
+            data() {
+                return {
+                    account: '',
+                    comment: '',
+                    sex: 1,
+                    skills: [],
+                    select: []
+                }
+            },
+            methods: {
+
+            },
+            directives: {
+                focus: {
+                    inserted: function(el) {
+                        el.focus();
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

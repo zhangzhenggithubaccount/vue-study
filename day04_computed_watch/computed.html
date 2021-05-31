@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li>{{message.split('').reverse().join('')}}</li>
+            <li>{{reverseMessage}}</li>
+            <li>{{reverseMessage}}</li>
+            <li>{{reverseM()}}</li>
+            <li>{{reverseM()}}</li>
+            <li>{{now}}</li>
+            <li>{{fullName}}</li>
+            <li>{{fullNames}}</li>
+        </ul>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    message: 'Hello Computed',
+                    firstName: 'Foo',
+                    lastName: 'Bar',
+                    fullName: 'Foo Bar'
+                }
+            },
+            methods: {
+                //每次调用都会执行
+                reverseM: function() {
+                    console.log('methods');
+                    return this.message.split('').reverse().join('');
+                }
+            },
+            // 对于任何复杂逻辑，都应当使用计算属性
+            // 计算属性 本质上是一个函数 实现某种功能或者得到某个结果 使用
+            // 的时候当作数据属性一样用 计算属性具有缓存
+            // 计算属性是基于它们的响应式依赖进行缓存的
+            computed: {
+                // 计算属性的 getter
+                reverseMessage: function() {
+                    // this 指向 vm 实例
+                    console.log('computed');
+                    return this.message.split('').reverse().join('');
+                },
+                //只在响应式依赖发生改变时它们才会重新求值。
+                //因为Date.now() 不是响应式依赖 故计算属性将不再更新
+                now: function () {
+                    return Date.now();
+                },
+                //计算属性的方法比侦听器方法好
+                fullNames: {
+                    //getter
+                    get: function() {
+                        return this.firstName + ' ' + this.lastName;
+                    },
+                    //setter
+                    set: function(newValue) {
+                        var names = newValue.split(' ');
+                        this.firstName = names[0];
+                        this.lastName = names[names.length - 1];
+                        this.fullName = newValue;
+                    }
+                }
+            },
+            //侦听器
+            watch: {
+                firstName: function(newVal, oldVal) {
+                    this.fullName = newVal + ' ' + this.lastName;
+                },
+                lastName: function(newVal, oldVal) {
+                    this.fullName = this.firstName + ' ' + newVal;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

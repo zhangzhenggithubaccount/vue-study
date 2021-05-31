@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{info | upper | changeStr('chongqing')}}
+        <input type="text" v-focus>
+    </div>
+    <script>
+        Vue.filter('upper', function(str) {
+            return str.toUpperCase();
+        });
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    info: 'china'
+                }
+            },
+            //方法
+            methods: {
+                
+            },
+            //自定义指令
+            directives: {
+                focus: {
+                    //钩子函数 bind update
+                    inserted: function(el) {
+                        el.focus();
+                    }
+                }
+            },
+            //计算属性
+            computed:{
+                
+            },
+            //侦听器
+            watch: {
+
+            },
+            //过滤器
+            filters: {
+                changeStr: function(str, prov) {
+                    return prov + '--' + str;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

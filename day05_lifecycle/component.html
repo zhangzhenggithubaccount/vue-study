@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button-counter title="点击次数"></button-counter>
+        <button-counter title="点击次数"></button-counter>
+        <div :style="{fontSize: fontSize + 'em'}">
+            <button-counter2 v-for='post in posts' :key='post.id' :post='post' v-on:enlarge-text="fontSize += $event"></button-counter2>
+        </div>
+    </div>
+    <script>
+        /*
+        组件定义时 名称可以是短横线也可以是驼峰式
+        1 假如是驼峰式命名 使用组件的时候 只能在字符串模板中用驼峰式
+        不能在普通的标签模板中，普通的标签模板中只能用短横线
+        */
+        Vue.component('button-counter2', {
+            props: ['post'],
+            template: `
+                <div>
+                    <h1 @click="addCount">{{post.title}} {{count}}</h1>
+                    <button v-on:click="$emit('enlarge-text', 0.1)">字体放大</button>
+                </div>
+            `,
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                addCount: function() {
+                    this.count++;
+                }
+            }
+        });
+        let vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    posts: [
+                        {id: 1, title: 'my journey with vue'},
+                        {id: 2, title: 'blogging with vue'},
+                        {id: 3, title: 'why vue is so fun'}
+                    ],
+                    fontSize: 1
+                }
+            },
+            methods: {
+                enlargeText: function() {
+                    this.fontSize += 0.1;
+                }
+            },
+            components: {
+                ButtonCounter: {
+                    props: ['title'],
+                    template: '<button @click="addCount">{{title}} {{count}}</button>',
+                    data() {
+                        return {
+                            count: 0
+                        }
+                    },
+                    methods: {
+                        addCount: function() {
+                            this.count++;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

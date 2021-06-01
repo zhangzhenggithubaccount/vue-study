@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div :style="{fontSize: fontSize + 'em'}">
+            <!-- 绑定事件enlarge-text 监听子组件事件 -->
+            <button-counter @enlarge-text='addFont'></button-counter>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    fontSize: 1
+                }
+            },
+            methods: {
+                addFont(val) {
+                    console.log(...arguments);
+                    this.fontSize += val;
+                }
+            },
+            components: {
+                buttonCounter: {
+                    props: ['fontSize'],
+                    template: `<div><h1>字体大小 {{fontSize}}</h1><button @click='addFont'>字体变大</button></div>`,
+                    data() {
+                        return {
+
+                        }
+                    },
+                    methods: {
+                        addFont() {
+                            this.$emit('enlarge-text', 1, 2);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

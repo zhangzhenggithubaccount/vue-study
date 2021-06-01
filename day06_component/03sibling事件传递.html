@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button-counter></button-counter>
+        <button-counter2></button-counter2>
+        <component :is='componentName'></component>
+        <!-- <component v-bind:is='button-counter2'></component> -->
+    </div>
+    
+    <script>
+        let vm = new Vue();
+        Vue.component('button-counter', {
+            template: '<div><h1>{{count}}</h1><button @click="addCount">点击加3</button></div>',
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                addCount() {
+                    vm.$emit('add-event2', 3);
+                }
+            },
+            mounted() {
+                vm.$on('add-event1', (val) => {
+                    this.count += val;
+                });
+            }
+        });
+        Vue.component('button-counter2', {
+            template: '<div><h1>{{count}}</h1><button @click="addCount">点击加2</button></div>',
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                addCount() {
+                    vm.$emit('add-event1', 2);
+                }
+            },
+            mounted() {
+                vm.$on('add-event2', (val) => {
+                    this.count += val;
+                });
+            }
+        });
+        
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    componentName: 'button-counter'
+                }
+            },
+            methods: {
+
+            }
+        });
+    </script>
+
+</body>
+</html>
